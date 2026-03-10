@@ -23,6 +23,12 @@ public://セッターゲッターは全部インラインで書いたよ
 	float GetOmega() { return omega_; }
 	void SetAngle(float angle) { angle_ = angle; }
 	float GetAngle() { return angle_; }
+	bool IsAlive() { return isAlive_; }
+
+	void SetCollisionRadius(float r) { collisionRadius_ = r; }
+	float GetCollisionRadius() { return collisionRadius_; }
+	void Dead() { isAlive_ = false; }
+
 private:
 	//独自のメンバ
 	//自分の向き（ベクトル）
@@ -30,7 +36,9 @@ private:
 	Vector2D dir_; //自分の向きベクトル
 	float radius_; //半径
 	Vector2D vertex_[3]; //3角形の頂点座標
+	float collisionRadius_;
 	float omega_; //回転速度(角速度)
 	float angle_; //現在の回転角
+	bool isAlive_; //生存フラグ
 };
 

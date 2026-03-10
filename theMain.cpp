@@ -1,7 +1,7 @@
 #include "DxLib.h"
 #include "globals.h"
 #include "input.h"
-#include "Player.h"
+#include "Stage.h"
 
 namespace
 {
@@ -9,7 +9,7 @@ namespace
 	int crrTime;
 	int prevTime;
 
-	Player* player = nullptr;
+	Stage* stage = nullptr;
 }
 
 
@@ -36,24 +36,25 @@ void DxInit()
 void Initialize()
 {
 	// 独自の初期化処理をここに記述
-	player = new Player({ WIN_WIDTH/2, WIN_HEIGHT/2 }, { 0,0 }, GetColor(255, 0, 0),
-		{ 0,-1 }, 60.0, 1.0f);
+	stage = new Stage();
+	stage->Initialize();
 }
 
 void Update()
 {
 	
 	// 独自の更新処理をここに記述
-	player->Update();
+	stage->Update();
 }
 void Draw()
 {
 	// 独自の描画処理をここに記述
-	player->Draw();
+	stage->Draw();
 }
 void Release()
 {
 	// 独自の終了処理をここに記述
+	stage->Release();
 }
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)

@@ -1,5 +1,6 @@
 #pragma once
 #include <cmath>
+#include "globals.h"
 
 ///////////////////////////////////////////////
 // 2D ベクトル型
@@ -38,6 +39,14 @@ namespace Math2D
 	const float PI = 3.14159265359f;
 	const float PI2 = 6.2831853072f;
 
+	inline Vector2D World2Screen(const Vector2D& wpos)
+	{
+		Vector2D tmp;//temporary=作業領域
+		tmp.x = wpos.x;
+		tmp.y = WIN_HEIGHT - wpos.y;
+		return(tmp);
+	}
+
 
 	// ---- ベクトル基本 ----
 
@@ -60,7 +69,6 @@ namespace Math2D
 	}
 
 	// ---- 長さ ----
-
 	// ベクトルの長さの2乗を求める（√を使わないので高速）
 	inline float LengthSq(const Vector2D& v)
 	{
@@ -83,7 +91,6 @@ namespace Math2D
 	}
 
 	// ---- 内積・外積 ----
-
 	// 内積（Dot Product）
 	// 2つのベクトルの向きの近さを表す
 	inline float Dot(const Vector2D& a, const Vector2D& b)
@@ -99,7 +106,6 @@ namespace Math2D
 	}
 
 	// ---- 角度 ----
-
 	// ベクトルの向きを角度（ラジアン）で取得する
 	// atan2 を使うことで全方向を正しく扱える
 	inline float Angle(const Vector2D& v)
@@ -114,7 +120,6 @@ namespace Math2D
 	}
 
 	// ---- 行列生成 ----
-
 	// 単位行列（変換なし）
 	inline Mat2 Identity()
 	{
@@ -145,7 +150,6 @@ namespace Math2D
 	}
 
 	// ---- 行列合成 ----
-
 	// 2つのアフィン行列を合成する（a の後に b を適用）
 	//[a.m00 a.m01, a.tx][b.m00 b.m01, b.tx]
     //[a.m10 a.m11, a.ty][b.m10 b.m11, b.ty]
@@ -175,7 +179,6 @@ namespace Math2D
 	}
 
 	// ---- 行列 × 点(ベクトル） ----
-
 	// 点（ベクトル）にアフィン変換を適用する
 	// 回転・平行移動をまとめて行う
 	//[m.m00 m.m01, m.tx][v.x]

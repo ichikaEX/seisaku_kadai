@@ -1,5 +1,16 @@
 #pragma once
 #include "Math2D.h"
+#include<string>
+
+enum OBJ_TYPE
+{
+	UNKNOWN,
+	PLAYER,
+	ENEMY,
+	BULLET,
+	EFFECT,
+	MAX_OBJ_TYPE
+};
 
 class Base
 {
@@ -15,11 +26,14 @@ public:
 	Vector2D GetPos() const { return pos_; }
 	void SetVel(const Vector2D& vel) { vel_ = vel; }
 	Vector2D GetVel() const { return vel_; }
-	void GetCharaColor(const unsigned int color) { Color_ = color; }
+	void SetCharaColor(const unsigned int color) { Color_ = color; }
 	unsigned int GetCharaColor() const { return Color_; }
+	//setterとgetterを追加
+	void SetObjType(const OBJ_TYPE& objtype) { objType = objtype; }
+	OBJ_TYPE GetType() const { return objType; }
 protected:
 	Vector2D pos_;//位置
 	Vector2D vel_;//速度
 	unsigned int Color_;//色 符号なし整数
+	OBJ_TYPE objType;//オブジェクトの種類
 };
-
