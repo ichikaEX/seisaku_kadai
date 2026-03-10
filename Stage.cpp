@@ -21,10 +21,10 @@ namespace
 	const float PLAYER_COLLISION_RADIUS = 15.0f;
 
 	const unsigned int ENEMY_MAX = 100;
-	const unsigned int ENEMY_NUM = 3;
+	const unsigned int ENEMY_NUM = 2;
 
-	int gameOveerTimer = 0;
-	int enemyTimer = 0;
+	int GameOverTimer = 0;
+	int EnemyTimer = 0;
 	//Player* player = nullptr;
 	//std::vector<Bullet*>bullets;//’eŠÛ‚Ì•ÛŠÇ
 	//std::vector<Enemy*>enemies;//“G‚Ì•ÛŠÇ
@@ -64,10 +64,15 @@ Stage::~Stage()
 
 void Stage::Initialize()//initialize‚Í‰Šúó‘Ô‚Ì‚±‚ÆI
 {
+	for (auto& obj : objects)
+	{
+		delete obj;
+	}
 	objects.clear();
 	stageState = 0;//ƒ^ƒCƒgƒ‹‰æ–Ê‚É‚·‚é!!!!!!!!
 	gameScore_ = 0;
-
+	EnemyTimer = 0;
+	GameOverTimer = 0;
 	Player* player = new Player(START_POS, START_VEL, START_COLOR, START_DIR, START_RADIUS, START_OMEGA);
 	player->SetCollisionRadius(PLAYER_COLLISION_RADIUS);
 	AddObject(player);
@@ -97,14 +102,14 @@ void Stage::PlayUpdate()
 
 	UpdateAllObjects();
 
-	enemyTimer++;
+	EnemyTimer++;
 
-	if (enemyTimer > 180)//3•b‚É1‘Ì“G‚ª‘‚¦‚Ä‚¢‚­Š´‚¶H
+	if (EnemyTimer > 180)//3•b‚É1‘Ì“G‚ª‘‚¦‚Ä‚¢‚­Š´‚¶H
 	{
 		Enemy* e = new Enemy(Enemy::Size::LARGE, 8);
 		AddObject(e);
 
-		enemyTimer = 0;
+		EnemyTimer = 0;
 	}
 
 
@@ -368,7 +373,7 @@ void Stage::Update()
 		if (player == nullptr || player->IsAlive() == false)
 		{
 			stageState = 2;
-			gameOveerTimer = 0;
+			GameOverTimer = 0;
 		}
 
 		PlayUpdate();
@@ -377,8 +382,8 @@ void Stage::Update()
 	//ƒQ[ƒ€ƒI[ƒo[‰æ–Ê
 	else if (stageState == 2)
 	{
-		gameOveerTimer++;
-		if (gameOveerTimer > 180)
+		GameOverTimer++;
+		if (GameOverTimer > 180)
 		{
 			stageState = 0;
 		}
